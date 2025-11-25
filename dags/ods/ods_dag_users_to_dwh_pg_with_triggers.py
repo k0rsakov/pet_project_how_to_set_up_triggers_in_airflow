@@ -1,5 +1,4 @@
 import logging
-import time
 import uuid
 
 from random import randint
@@ -7,10 +6,11 @@ from random import randint
 import duckdb
 import pandas as pd
 import pendulum
-from airflow.operators.trigger_dagrun import TriggerDagRunOperator
+
 from airflow import DAG
 from airflow.operators.empty import EmptyOperator
 from airflow.operators.python import PythonOperator
+from airflow.operators.trigger_dagrun import TriggerDagRunOperator
 from faker import Faker
 
 
