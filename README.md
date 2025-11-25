@@ -1,0 +1,2 @@
+# pet_project_how_to_set_up_triggers_in_airflow
+https://korsak0v.notion.site/Data-Engineer-185c62fdf79345eb9da9928356884ea0
