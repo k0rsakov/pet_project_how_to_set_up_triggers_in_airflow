@@ -121,4 +121,4 @@ with DAG(
         task_id="end",
     )
 
-    start >> load_ods_layer >> end
+    start >> load_ods_layer >> trigger_dag_dm_dag_without_sensors >> end
