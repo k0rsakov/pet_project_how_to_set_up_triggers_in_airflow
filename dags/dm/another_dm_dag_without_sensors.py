@@ -64,4 +64,4 @@ with DAG(
         task_id="end",
     )
 
-    start >> sensor_ods_dag_users_to_dwh_pg >> sensor_ods_dag_without_catchup >> load_dm_layer >> end
+    start >> load_dm_layer >> end
