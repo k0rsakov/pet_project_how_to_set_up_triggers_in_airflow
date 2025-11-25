@@ -114,15 +114,25 @@ with DAG(
     trigger_dag_dm_dag_without_sensors = TriggerDagRunOperator(
         task_id="trigger_dag_dm_dag_without_sensors",
         trigger_dag_id="dm_dag_without_sensors",
-        logical_date="{{ data_interval_start }}",
+        # logical_date="{{ data_interval_start }}",
         # При перезапуске DAGRun включить reset_dag_run
-        # reset_dag_run=True,
+        # reset_dag_run=True, # / skip_when_already_exists=True
     )
 
     # trigger_dag_another_dm_dag_without_sensors = TriggerDagRunOperator(
     #     task_id="trigger_dag_another_dm_dag_without_sensors",
     #     trigger_dag_id="another_dm_dag_without_sensors",
     #     logical_date="{{ data_interval_start }}",
+    #     reset_dag_run=True,
+    # )
+
+    # trigger_dag_another_another_dm_dag_without_sensors = TriggerDagRunOperator(
+    #     task_id="trigger_dag_another_another_dm_dag_without_sensors",
+    #     trigger_dag_id="another_another_dm_dag_without_sensors",
+    #     logical_date="{{ data_interval_start }}",
+    #     reset_dag_run=True,
+    #     wait_for_completion=True,
+    #
     # )
 
     end = EmptyOperator(
@@ -132,3 +142,5 @@ with DAG(
     start >> load_ods_layer >> trigger_dag_dm_dag_without_sensors >> end
 
     # start >> load_ods_layer >> [trigger_dag_dm_dag_without_sensors, trigger_dag_another_dm_dag_without_sensors]>> end
+
+    # start >> load_ods_layer >> [trigger_dag_dm_dag_without_sensors, trigger_dag_another_dm_dag_without_sensors, trigger_dag_another_another_dm_dag_without_sensors]>> end
