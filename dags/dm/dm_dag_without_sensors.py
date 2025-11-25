@@ -37,6 +37,8 @@ def load_dm_layer(**context) -> None:
     @param context: Контекст DAG.
     @return: Ничего не возвращает.
     """
+    logging.info(f"🗓️ Date of start = {context.get('data_interval_start')}")
+
     query = f"""
         INSTALL postgres;
         LOAD postgres;
