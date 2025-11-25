@@ -119,8 +119,16 @@ with DAG(
         # reset_dag_run=True,
     )
 
+    # trigger_dag_another_dm_dag_without_sensors = TriggerDagRunOperator(
+    #     task_id="trigger_dag_another_dm_dag_without_sensors",
+    #     trigger_dag_id="another_dm_dag_without_sensors",
+    #     logical_date="{{ data_interval_start }}",
+    # )
+
     end = EmptyOperator(
         task_id="end",
     )
 
     start >> load_ods_layer >> trigger_dag_dm_dag_without_sensors >> end
+
+    # start >> load_ods_layer >> [trigger_dag_dm_dag_without_sensors, trigger_dag_another_dm_dag_without_sensors]>> end
