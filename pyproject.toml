@@ -1,0 +1,230 @@
+[tool.isort]
+profile = "black"
+multi_line_output = 3
+src_paths = ["example", "configuration"]
+known_common = "common"
+sections = "FUTURE,STDLIB,THIRDPARTY,COMMON,FIRSTPARTY,LOCALFOLDER"
+
+[tool.mypy]
+strict = true
+ignore_missing_imports = true
+allow_subclassing_any = true
+allow_untyped_calls = true
+pretty = true
+show_error_codes = true
+implicit_reexport = true
+allow_untyped_decorators = true
+warn_return_any = false
+
+[tool.ruff]
+exclude = [
+    "venv",
+    "unused",
+    ".git",
+    ".idea",
+    "migrations",
+    "tests",
+]
+fix = true  # Автоматическое исправление где возможно для лучшего опыта разработки
+# Группировка нарушений по файлам для лучшей читаемости
+output-format = "grouped"
+# Перечисление всех исправленных нарушений
+show-fixes = true
+# Показывать коды правил, чтобы легче понять, какое правило сработало
+#show-source = true
+
+# Те же настройки, что и у Black
+line-length = 120
+indent-width = 4
+
+# Используем Python 3.12
+target-version = "py312"
+
+[tool.ruff.lint]
+# Включаем ВСЕ доступные правила для максимального покрытия
+select = [
+    # Основные категории
+    "F",        # pyflakes - обнаружение ошибок
+    "E", "W",   # pycodestyle - стиль кодирования
+    "C90",      # mccabe - сложность кода
+    "I",        # isort - импорты
+    "N",        # pep8-naming - соглашения об именовании
+    "D",        # pydocstyle - документация
+
+    # Airflow-специфичные правила
+#    "AIR",      # Airflow-специфичные проверки - критично для вашего проекта DAG
+
+    # Проверки безопасности и качества
+    "S",        # flake8-bandit - проверки безопасности
+    "B",        # flake8-bugbear - обнаружение потенциальных ошибок
+    "A",        # flake8-builtins - проверка перекрытия встроенных имен
+    "C",        # flake8-comprehensions - улучшенные list/dict comprehensions
+    "T10",      # flake8-debugger - запрет отладчиков в коде
+    "T20",      # flake8-print - контроль использования print
+    "ARG",      # flake8-unused-arguments - неиспользуемые аргументы
+    "SIM",      # flake8-simplify - упрощение кода
+    "Q",        # flake8-quotes - единообразие кавычек
+    "RET",      # flake8-return - правила для return
+    "UP",       # pyupgrade - использование новых возможностей Python
+    "SLF",      # flake8-self - проверка самоссылок
+    "RUF",      # Ruff-специфичные правила
+    "PTH",      # flake8-use-pathlib - использование pathlib вместо os.path
+
+    # Анализ данных и специализированные правила
+    "NPY",      # NumPy-специфичные правила
+    "PD",       # Pandas-vet - правила для работы с pandas (критично для анализа данных)
+    "PERF",     # Perflint - проверка производительности
+    "PL",       # Pylint - дополнительные проверки кода
+
+    # Тесты
+    "PT",       # flake8-pytest-style - стиль pytest
+    "PYI",      # flake8-pyi - проверка типов аннотаций
+
+    # Специальные проверки
+    "BLE",      # flake8-blind-except - запрет общих исключений
+    "FBT",      # flake8-boolean-trap - булевы ловушки
+    "COM",      # flake8-commas - правильное использование запятых
+    "DTZ",      # flake8-datetimez - правильная работа с временными зонами
+    "ERA",      # eradicate - обнаружение закомментированного кода
+    "EXE",      # flake8-executable - проверка исполняемых файлов
+    "FA",       # flake8-future-annotations - аннотации из будущего
+    "ICN",      # flake8-import-conventions - соглашения для импорта
+    "ISC",      # flake8-implicit-str-concat - неявная конкатенация строк
+    "INP",      # flake8-no-pep420 - предупреждение о неявных пакетах
+    "PIE",      # flake8-pie - разные полезные правила
+#    "PYQ",      # flake8-pyquotes - проверка согласованности кавычек
+    "RSE",      # flake8-raise - правила для генерации исключений
+    "RUF",      # специфические для Ruff правила
+    "TRY",      # tryceratops - правила для блоков try/except
+    "LOG",      # flake8-logging - проверка логирования
+
+    # Проверки типов
+    "ANN",      # flake8-annotations - проверка аннотаций типов
+
+    # Форматирование документации
+    "DJ",       # flake8-django - правила для Django
+    "EM",       # flake8-errmsg - улучшенные сообщения об ошибках
+    "FLY",      # flynt - конвертация в f-строки
+    "FURB",     # refurb - рефакторинг идиом Python
+
+    # Дополнительные правила
+    "G",        # flake8-logging-format - форматирование логов
+    "TCH",      # flake8-type-checking - лучшие практики проверки типов
+    "TD",       # flake8-todos - проверка TODO комментариев
+    "YTT",      # flake8-2020 - проверка будущих проблем совместимости
+]
+
+# Выборочно игнорируем правила, которые не подходят для проекта
+ignore = [
+    # Стандарты для документации
+    "D212",  # Многострочное описание должно начинаться с первой строки
+    "D202",  # Не должно быть пустых строк после строки документации функции
+    "D100",  # Отсутствует строка документации в публичном модуле
+    "D203",  # Одна пустая строка перед строкой документации класса
+    "D107",  # Отсутствует строка документации в __init__
+
+    # Безопасность - выборочно игнорируем
+    "S108",  # Вероятное небезопасное использование временного файла или директории
+    "S608",  # Возможный вектор SQL-инъекции через строковое построение запроса
+    "S101",  # Использование assert (допустимо в тестах)
+    "S311",
+
+    # Аннотации типов - игнорируем определённые случаи
+    "ANN002",  # Отсутствует аннотация типа для *args
+    "ANN003",  # Отсутствует аннотация типа для **kwargs
+    "ANN204",  # Отсутствует аннотация типа возврата для специального метода
+
+    # Прочее
+    "G004",  # Запись логов с использованием f-строк (иногда необходимо для ясности)
+    "RUF100",  # Неиспользуемая директива noqa (полезно при разработке)
+    "ERA001",  # Найден закомментированный код (иногда полезно для документации)
+    "INP001",
+    "RUF001", "RUF002", "RUF003",
+    "LOG015",
+    "TRY201",
+    "COM812"
+]
+
+# Игнорирование правил для конкретных файлов
+[tool.ruff.lint.per-file-ignores]
+# Разрешаем print и assert в тестах
+"tests/**/*.py" = ["T201", "S101", "ANN"]
+# Разрешаем print в скриптах DAG (полезно для логирования Airflow)
+"dags/**/*.py" = ["T201"]
+# Разрешаем затенять встроенные имена в скриптах
+"scripts/**/*.py" = ["A002", "A003"]
+# Специфичные исключения для файлов Airflow
+#"dags/**/*.py" = ["AIR001"]  # Разрешаем запускать импорты на верхнем уровне
+
+[tool.ruff.lint.flake8-quotes]
+multiline-quotes = "double"
+inline-quotes = "double"
+docstring-quotes = "double"
+
+[tool.ruff.lint.pycodestyle]
+max-line-length = 121
+max-doc-length = 120
+
+[tool.ruff.lint.isort]
+combine-as-imports = true
+force-single-line = true
+lines-after-imports = 2
+lines-between-types = 1
+
+[tool.ruff.lint.mccabe]
+# Помечать ошибки (`C901`), когда сложность превышает 5.
+max-complexity = 5
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"  # Используем стиль документации Google
+
+# Настройки для правил Airflow
+#[tool.ruff.lint.flake8-airflow]
+# Добавляем дополнительные настройки для правил Airflow если нужно
+#ignore-for-deprecated-decorators = true
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+line-ending = "lf"
+skip-magic-trailing-comma = false
+docstring-code-format = true
+
+[tool.pytest.ini_options]
+testpaths = [
+    "tests",
+    "integration",
+]
+markers = [
+    "unit: mark test as unit test",
+    "integration: mark test as integration test",
+    "db: mark test as using a database connection"
+]
+pythonpath = [
+  "dags"
+]
+filterwarnings = [
+    "error",
+    "ignore::DeprecationWarning",
+]
+
+[tool.poetry]
+name = "pet_project_testing_for_data_engineer"
+version = "0.0.1"
+description = ""
+authors = [""]
+readme = "README.md"
+package-mode = false
+
+[tool.poetry.urls]
+"Homepage" = ""
+"Bug Tracker" = ""
+"PyPi" = ""
+
+[tool.poetry.dependencies]
+python = ">=3.12.8,<3.13"
+ruff = "0.14.4"
+apache-airflow = "2.10.4"
+duckdb = "1.4.0"
+Faker = "38.0.0"
+pandas = "2.2.3"
