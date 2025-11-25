@@ -1,5 +1,4 @@
 import logging
-import time
 import uuid
 
 from random import randint
@@ -43,8 +42,6 @@ def load_ods_layer(**context) -> None:
     @param context: Контекст DAG.
     @return: Ничего не возвращает.
     """
-    time.sleep(0)
-
     fake = Faker(locale="ru_RU")
 
     list_of_dict = []
