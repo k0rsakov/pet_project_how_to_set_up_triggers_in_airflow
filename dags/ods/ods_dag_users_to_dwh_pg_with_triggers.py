@@ -114,7 +114,9 @@ with DAG(
     trigger_dag_dm_dag_without_sensors = TriggerDagRunOperator(
         task_id="trigger_dag_dm_dag_without_sensors",
         trigger_dag_id="dm_dag_without_sensors",
-        # execution_date="{{ data_interval_start }}",
+        logical_date="{{ data_interval_start }}",
+        # При перезапуске DAGRun включить reset_dag_run
+        # reset_dag_run=True,
     )
 
     end = EmptyOperator(
